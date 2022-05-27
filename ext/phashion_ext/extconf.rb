@@ -20,6 +20,12 @@ Dir.chdir(HERE) do
     raise "'#{cmd}' failed" unless system(cmd)
 
     Dir.chdir(BUNDLE_PATH) do
+      puts(cmd = "wget -O config.guess 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'")
+      raise "'#{cmd}' failed" unless system(cmd)
+
+      puts(cmd = "wget -O config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'")
+      raise "'#{cmd}' failed" unless system(cmd)
+
       puts(cmd = "env CXXFLAGS='#{$CXXFLAGS}' CFLAGS='#{$CFLAGS}' LDFLAGS='#{$LDFLAGS}' ./configure --prefix=#{HERE} --disable-audio-hash --disable-video-hash --disable-shared 2>&1")
       raise "'#{cmd}' failed" unless system(cmd)
 
